@@ -4,7 +4,7 @@ const generateToken = require("./../utils/generateToken");
 const bcrypt = require("bcryptjs");
 
 // @desc Register a new stident
-// @route POST /api/student/
+// @route POST /api/users/
 // @access Public
 const registerUser = asyncHandler(async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
@@ -25,9 +25,9 @@ const registerUser = asyncHandler(async (req, res) => {
   });
   if (user) {
     res.status(201).json({
-      name: user.name,
+      firstName: user.first_name,
+      lastName: user.last_name,
       email: user.email,
-      isAdmin: user.isAdmin,
       token: generateToken(user._id),
     });
   } else {
@@ -36,4 +36,26 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { registerUser };
+// @desc Auth user & get a token
+// @route POST /api/users/login
+// @access Public
+const authUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+  const user = await Students.findOne({ where: { email } });
+  console.log({ user });
+  const matchPassword = await bcrypt.compare(password, user.password);
+
+  if (user && (await matchPassword)) {
+    res.json({
+      firstName: user.first_name,
+      lastName: user.last_name,
+      email: user.email,
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(401);
+    throw new Error("Invalid email or password");
+  }
+});
+
+module.exports = { registerUser, authUser };
