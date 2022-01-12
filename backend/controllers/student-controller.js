@@ -1,4 +1,5 @@
 const Students = require("../models/student");
+const Seminars = require("../models/seminar");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("./../utils/generateToken");
 const bcrypt = require("bcryptjs");
@@ -106,4 +107,23 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { registerUser, authUser, getUserProfile, updateUserProfile };
+// @desc Get Seminar Details
+// @route GET/api/users/seminars
+// @access Public. Make it private by adding middleware.
+const getSeminarDetails = asyncHandler(async (req, res) => {
+  const seminars = await Seminars.findAll();
+  if (seminars) {
+    res.status(200).send(seminars);
+  } else {
+    res.status(404);
+    throw new Error("Something went wrong");
+  }
+});
+
+module.exports = {
+  registerUser,
+  authUser,
+  getUserProfile,
+  updateUserProfile,
+  getSeminarDetails,
+};
