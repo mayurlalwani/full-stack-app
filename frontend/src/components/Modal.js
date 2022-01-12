@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import "../styles/modal.scss";
 import axios from "axios";
+import "../styles/modal.scss";
 
 const Modal = ({ setShowModal, seminarName, seminarDate }) => {
   const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmitMail = () => {
     axios({
@@ -18,6 +19,8 @@ const Modal = ({ setShowModal, seminarName, seminarDate }) => {
       },
     }).then((response) => {
       console.log({ response });
+      setMessage("Email sent successfully!!");
+      setEmail("");
     });
   };
 
@@ -37,6 +40,7 @@ const Modal = ({ setShowModal, seminarName, seminarDate }) => {
           placeholder="Enter your email"
         />
         <span>Note: A confirmation mail will be send to this email id</span>
+        <span className="message">{message}</span>
         <button
           type="submit"
           className="primary-btn submit-btn"
