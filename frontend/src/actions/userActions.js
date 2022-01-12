@@ -13,6 +13,9 @@ import {
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
+  SEMINAR_DETAILS_REQUEST,
+  SEMINAR_DETAILS_SUCCESS,
+  SEMINAR_DETAILS_FAIL,
 } from "../constants/userConstants";
 
 export const login = (email, password) => async (dispatch) => {
@@ -138,6 +141,26 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_UPDATE_PROFILE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getSeminarDetails = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: SEMINAR_DETAILS_REQUEST,
+    });
+
+    const { data } = await axios.get(`/api/users/seminars`);
+
+    dispatch({ type: SEMINAR_DETAILS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: SEMINAR_DETAILS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

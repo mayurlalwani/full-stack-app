@@ -8,6 +8,7 @@ const {
   getUserProfile,
   updateUserProfile,
   getSeminarDetails,
+  sendEmail,
 } = require("../controllers/student-controller");
 
 const protect = require("../middlewares/authMiddleware");
@@ -17,5 +18,6 @@ router.post("/login", authUser);
 router.get("/profile/:id", getUserProfile);
 router.put("/profile/:id", updateUserProfile);
 router.get("/seminars", getSeminarDetails);
+router.post("/send-email", sendEmail);
 
 module.exports = router;

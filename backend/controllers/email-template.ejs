@@ -1,0 +1,33 @@
+<style type="text/css">
+  .header {
+    background: #8a8a8a;
+  }
+</style>
+
+<wrapper class="header">
+  <container>
+    <row class="collapse">
+      <columns small="6"> </columns>
+    </row>
+  </container>
+</wrapper>
+
+<container>
+  <row>
+    <columns small="12">
+      <p>
+        Hello! <br> <%= name %></p>
+        <span>Thank you for registering for Seminar</span>
+        Seminar Details:
+        <ul>
+          <li>
+            Seminar Name: <%= seminarName %>
+          </li>
+          <li>
+          Seminar Time:  <%= seminarDate %>
+          </li>
+      </ul>
+      </p>
+     </columns>
+  </row>
+</container>

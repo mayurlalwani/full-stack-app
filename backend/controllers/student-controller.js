@@ -3,6 +3,11 @@ const Seminars = require("../models/seminar");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("./../utils/generateToken");
 const bcrypt = require("bcryptjs");
+const ejs = require("ejs");
+const nodemailer = require("nodemailer");
+
+const EMAIL = process.env.EMAIL;
+const PASS = process.env.PASS;
 
 // @desc Register a new stident
 // @route POST /api/users/
@@ -121,10 +126,60 @@ const getSeminarDetails = asyncHandler(async (req, res) => {
   }
 });
 
+const sendEmail = asyncHandler(async (req, res) => {
+  const { name, seminarName, seminarDate, email } = req.body;
+  const transport = {
+    host: "smtp.gmail.com",
+    service: "gmail",
+    secure: false,
+    auth: {
+      type: "PLAIN",
+      user: EMAIL,
+      pass: PASS,
+    },
+    port: 465,
+    secure: true,
+    requireTLS: true,
+    logger: false,
+    debug: false,
+    tls: { rejectUnauthorized: false },
+  };
+  const transporter = nodemailer.createTransport(transport);
+  ejs.renderFile(
+    __dirname + "/email-template.ejs",
+    { name: name, seminarName, seminarDate },
+    function (err, data) {
+      if (err) {
+      } else {
+        var mainOptions = {
+          from: "lalwanimayur06@gmail.com",
+          to: email,
+          subject: "Seminar details",
+          html: data,
+        };
+
+        transporter.sendMail(mainOptions, function (err, info) {
+          if (err) {
+            res.json({
+              msg: "Something went wrong!",
+              err,
+            });
+          } else {
+            res.json({
+              msg: "Email sent successfully!",
+            });
+          }
+        });
+      }
+    }
+  );
+});
+
 module.exports = {
   registerUser,
   authUser,
   getUserProfile,
   updateUserProfile,
   getSeminarDetails,
+  sendEmail,
 };

@@ -7,6 +7,7 @@ import {
   userRegisterReducer,
   userDetailsReducer,
   userUpdateProfileReducer,
+  seminarDetailsReducer,
 } from "./reducers/userReducers";
 
 const reducer = combineReducers({
@@ -14,6 +15,7 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
+  seminarDetails: seminarDetailsReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

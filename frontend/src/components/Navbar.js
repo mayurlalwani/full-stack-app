@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../actions/userActions";
 import { Link } from "react-router-dom";
-import "./navbar.scss";
+import "../styles/navbar.scss";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,9 @@ const Navbar = () => {
           <Link to="/profile">
             <span className="nav-item">Profile</span>
           </Link>
-          <span className="nav-item">Seminar</span>
+          <Link to="/seminars">
+            <span className="nav-item">Seminar</span>
+          </Link>
           <span className="nav-item" onClick={logoutHandler}>
             Logout
           </span>
