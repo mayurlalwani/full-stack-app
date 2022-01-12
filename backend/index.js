@@ -16,6 +16,11 @@ app.get("/", (req, res) => {
 
 app.use("/api/users", allRoutes);
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
+
 app.listen(
   PORT,
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)

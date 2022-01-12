@@ -1,10 +1,15 @@
-import "./App.css";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import LoginPage from "./components/LoginPage";
+
+import "./App.scss";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Student</h1>
-    </div>
+    <Router>
+      <div className="App">
+        <Route path="/login" component={LoginPage} />
+      </div>
+    </Router>
   );
 }
 
