@@ -16,7 +16,9 @@ const Navbar = () => {
     <div className="navbar">
       {userInfo ? (
         <>
-          <span className="nav-item">Profile</span>
+          <Link to="/profile">
+            <span className="nav-item">Profile</span>
+          </Link>
           <span className="nav-item">Seminar</span>
           <span className="nav-item" onClick={logoutHandler}>
             Logout
