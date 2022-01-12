@@ -42,7 +42,6 @@ const registerUser = asyncHandler(async (req, res) => {
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await Students.findOne({ where: { email } });
-  console.log({ user });
   const matchPassword = await bcrypt.compare(password, user.password);
 
   if (user && (await matchPassword)) {
@@ -58,4 +57,24 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { registerUser, authUser };
+// @desc Get Profile Details
+// @route GET/api/users/profile
+// @access Public. Make it private by adding middleware.
+const getUserProfile = asyncHandler(async (req, res) => {
+  const userId = parseInt(req.params.id);
+
+  const user = await Students.findOne({ where: { id: userId } });
+  if (user) {
+    res.json({
+      id: user.id,
+      firstName: user.first_name,
+      lastName: user.last_name,
+      email: user.email,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
+module.exports = { registerUser, authUser, getUserProfile };
