@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserDetails, updateUserProfile } from "../actions/userActions";
-import "./register.scss";
+import "../styles/register.scss";
 
 const ProfilePage = ({ history }) => {
   const [firstName, setFirstName] = useState("");

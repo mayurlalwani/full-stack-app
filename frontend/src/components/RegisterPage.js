@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../actions/userActions";
 import { register } from "../actions/userActions";
 
-import "./register.scss";
+import "../styles/register.scss";
 
 const RegisterPage = ({ location, history }) => {
   const [firstName, setFirstName] = useState("");

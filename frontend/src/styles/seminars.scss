@@ -1,0 +1,34 @@
+.seminar-container {
+  .seminars {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 5%;
+  }
+
+  .seminars td,
+  .seminars th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  .seminars th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: blue;
+    color: white;
+  }
+
+  & .seminar-btn {
+    display: inline-block;
+    padding: 4px 10px 4px;
+    margin-bottom: 0;
+    font-size: 13px;
+    line-height: 18px;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #4a77d4;
+    font-weight: 700;
+  }
+}

@@ -12,6 +12,9 @@ import {
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
+  SEMINAR_DETAILS_REQUEST,
+  SEMINAR_DETAILS_SUCCESS,
+  SEMINAR_DETAILS_FAIL,
 } from "../constants/userConstants";
 
 export const userLoginReducer = (state = {}, action) => {
@@ -93,6 +96,28 @@ export const userUpdateProfileReducer = (state = {}, action) => {
         userInfo: action.payload,
       };
     case USER_UPDATE_PROFILE_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const seminarDetailsReducer = (state = { seminars: {} }, action) => {
+  switch (action.type) {
+    case SEMINAR_DETAILS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case SEMINAR_DETAILS_SUCCESS:
+      return {
+        loading: false,
+        seminars: action.payload,
+      };
+    case SEMINAR_DETAILS_FAIL:
       return {
         loading: false,
         error: action.payload,
