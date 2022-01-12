@@ -77,4 +77,33 @@ const getUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { registerUser, authUser, getUserProfile };
+// @desc Update Profile
+// @route PUT/api/users/profile
+// @access Public
+const updateUserProfile = asyncHandler(async (req, res) => {
+  const userId = parseInt(req.params.id);
+
+  const user = await Students.findOne({ where: { id: userId } });
+
+  const { id, firstName, lastName, email, password } = req.body;
+  if (user) {
+    user.first_name = firstName || user.firstName;
+    user.last_name = firstName || user.firstName;
+    user.email = email || user.email;
+    if (password) {
+      user.password = password;
+    }
+    const updatedUser = await user.save();
+    res.json({
+      firstName: updatedUser.first_name,
+      lastName: updatedUser.last_name,
+      email: updatedUser.email,
+      token: generateToken(updatedUser.id),
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
+module.exports = { registerUser, authUser, getUserProfile, updateUserProfile };
