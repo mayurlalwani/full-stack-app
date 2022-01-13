@@ -22,9 +22,11 @@ const Navbar = () => {
           <Link to="/seminars">
             <span className="nav-item">Seminar</span>
           </Link>
-          <span className="nav-item" onClick={logoutHandler}>
-            Logout
-          </span>
+          <Link to="/">
+            <span className="nav-item" onClick={logoutHandler}>
+              Logout
+            </span>
+          </Link>
         </>
       ) : (
         <Link to="/login">

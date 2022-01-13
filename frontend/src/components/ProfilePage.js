@@ -35,7 +35,9 @@ const ProfilePage = ({ history }) => {
     if (password !== confirmPassword) {
       console.log("Passwords do not match");
     } else {
-      dispatch(updateUserProfile({ id: user.id, firstName, email, password }));
+      dispatch(
+        updateUserProfile({ id: user.id, firstName, lastName, email, password })
+      );
     }
   };
 

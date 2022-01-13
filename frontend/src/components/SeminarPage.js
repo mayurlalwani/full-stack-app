@@ -20,11 +20,11 @@ const SeminarPage = ({ history }) => {
   const { seminars } = seminarDetails;
   console.log({ seminars });
   useEffect(() => {
-    // if (!userInfo) {
-    //   history.push("/login");
-    // } else {
-    //   dispatch(getSeminarDetails());
-    // }
+    if (!userInfo) {
+      history.push("/login");
+    } else {
+      dispatch(getSeminarDetails());
+    }
     dispatch(getSeminarDetails());
   }, []);
 
