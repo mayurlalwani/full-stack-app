@@ -23,15 +23,12 @@ const ProfilePage = ({ history }) => {
     if (!userInfo) {
       history.push("/login");
     } else {
-      if (!user) {
-        dispatch(getUserDetails("profile"));
-      } else {
-        setFirstName(userInfo.firstName);
-        setLastName(userInfo.lastName);
-        setEmail(userInfo.email);
-      }
+      dispatch(getUserDetails());
+      setFirstName(userInfo.firstName);
+      setLastName(userInfo.lastName);
+      setEmail(userInfo.email);
     }
-  }, [dispatch, history, userInfo, user]);
+  }, [history, userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -44,42 +41,65 @@ const ProfilePage = ({ history }) => {
 
   return (
     <div className="signup-container">
-      <h2>User Profile</h2>
-      <form onSubmit={submitHandler} className="signup-form">
-        <input
-          type="text"
-          placeholder="First Name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Last Name"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-        <input
-          type="email"
-          placeholder="Enter Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Enter Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-        <button type="submit" variant="primary" className="login-btn">
-          Update
-        </button>
-      </form>
+      <>
+        <h2>User Profile</h2>
+        <form onSubmit={submitHandler} className="signup-form">
+          <input
+            type="text"
+            placeholder="First Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+          <input
+            type="email"
+            placeholder="Enter Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <h3>Hobbies</h3>
+          <label>
+            <input type="checkbox" checked="checked" />
+            Drawing
+            <span></span>
+          </label>
+          <label>
+            <input type="checkbox" />
+            Painting
+            <span></span>
+          </label>
+          <label>
+            <input type="checkbox" />
+            Dancing
+            <span></span>
+          </label>
+          <label>
+            <input type="checkbox" />
+            Singing
+            <span></span>
+          </label>
+          {/* <input
+            type="password"
+            placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          /> */}
+          <button type="submit" variant="primary" className="login-btn">
+            Update
+          </button>
+        </form>
+      </>
     </div>
   );
 };

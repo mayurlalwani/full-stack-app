@@ -1,4 +1,5 @@
 "use strict";
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     /**
@@ -11,22 +12,27 @@ module.exports = {
      * }], {});
      */
     await queryInterface.bulkInsert(
-      "hobbies",
+      "student_hobby",
       [
         {
-          hobby_name: "Drawing",
+          hobby_id: 1,
+          user_id: 6,
         },
         {
-          hobby_name: "Singing",
+          hobby_id: 2,
+          user_id: 6,
         },
         {
-          hobby_name: "Dancing",
+          hobby_id: 3,
+          user_id: 6,
         },
         {
-          hobby_name: "Painting",
+          hobby_id: 2,
+          user_id: 1,
         },
         {
-          hobby_name: "Writing",
+          hobby_id: 1,
+          user_id: 1,
         },
       ],
       {}

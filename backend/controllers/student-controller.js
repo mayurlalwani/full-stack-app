@@ -1,10 +1,13 @@
 const Students = require("../models/student");
 const Seminars = require("../models/seminar");
+const Hobbies = require("../models/hobbies");
+const StudentHobby = require("../models/student_hobby");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("./../utils/generateToken");
 const bcrypt = require("bcryptjs");
 const ejs = require("ejs");
 const nodemailer = require("nodemailer");
+const { QueryTypes } = require("sequelize");
 
 const EMAIL = process.env.EMAIL;
 const PASS = process.env.PASS;
@@ -71,12 +74,22 @@ const getUserProfile = asyncHandler(async (req, res) => {
   const userId = parseInt(req.params.id);
 
   const user = await Students.findOne({ where: { id: userId } });
+  const hobbies = await Hobbies.sequelize.query(
+    {
+      query: `SELECT h.hobby_name, s.id FROM hobbies AS h LEFT JOIN student_hobby AS sh ON h.id=sh.hobby_id LEFT JOIN students AS s ON s.id=sh.user_id WHERE s.id=? `,
+      values: [userId],
+    },
+    {
+      type: QueryTypes.SELECT,
+    }
+  );
   if (user) {
     res.json({
       id: user.id,
       firstName: user.first_name,
       lastName: user.last_name,
       email: user.email,
+      hobbies,
     });
   } else {
     res.status(404);
